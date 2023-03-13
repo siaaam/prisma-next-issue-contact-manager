@@ -35,6 +35,12 @@
     @apply border border-red-500;
   }
 
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   .container {
     margin: 0 auto;
     width: calc(100% - 40px);
