@@ -1,14 +1,13 @@
-import Link from "next/link";
 import React from "react";
 
-const Home = () => {
+const AddContact = () => {
   return (
     <section>
       <div className="container">
-        <h2>Home</h2>
+        <h2>This is add contact form</h2>
       </div>
     </section>
   );
 };
 
-export default Home;
+export default AddContact;

@@ -7,7 +7,7 @@
 /* BASE STYLES */
 @layer base {
   body {
-    @apply font-jakarta text-base text-white;
+    @apply font-jakarta text-base text-white bg-gray-600;
   }
   h1 {
     @apply text-[1.875rem] font-semibold leading-[160%] lg:text-[3rem] 2xl:text-[3.875rem] 2xl:leading-[5.375rem];
