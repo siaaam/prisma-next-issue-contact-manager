@@ -10,8 +10,10 @@ export default async function handler(
   }
   try {
     const { name, email, phone } = req.body;
-    await prisma.contact.create({ data: { name, email, phone } });
-    res.status(200).json({ message: "Contact Create" });
+    const contact = await prisma.contact.create({
+      data: { name, email, phone },
+    });
+    res.status(200).json({ message: "Contact Create", data: contact });
   } catch (err) {
     res.status(400).json({ message: "Something Went Wrong" });
   }

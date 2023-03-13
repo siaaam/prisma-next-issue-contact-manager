@@ -25,7 +25,11 @@ const FormikContainer = () => {
   });
 
   const addContact = async (values: MyFormValues) => {
-    await axios.post("api/create", values);
+    try {
+      await axios.post("api/create", values);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onSubmit = async (values: MyFormValues) => {

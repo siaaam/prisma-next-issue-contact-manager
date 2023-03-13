@@ -1,6 +1,7 @@
 import ContactCard from "@/components/ContactCard";
 import React from "react";
-import { prisma } from "@/lib/prisma";
+import { useQuery } from "react-query";
+import { getAllContacts } from "@/utils/getAllContacts";
 
 const contactsData: ContactType[] = [
   {
@@ -36,13 +37,21 @@ export type ContactType = {
   phone: string;
 };
 
-const contacts = ({ contacts }: any) => {
+const contacts = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["contacts"],
+    queryFn: getAllContacts,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error...</p>;
+
   return (
     <section>
       <div className="container">
         <h3 className="md:mb-6 mb-4">All Contacts </h3>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {contacts.map((data: any) => (
+          {data?.data.contacts.map((data: any) => (
             <ContactCard key={data.id} contact={data} />
           ))}
         </div>
@@ -50,14 +59,5 @@ const contacts = ({ contacts }: any) => {
     </section>
   );
 };
-
-export async function getServerSideProps() {
-  const contacts = await prisma.contact.findMany();
-  return {
-    props: {
-      contacts,
-    },
-  };
-}
 
 export default contacts;
