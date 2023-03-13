@@ -4,19 +4,16 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { HiOutlineMail } from "react-icons/hi";
 import { FiSmartphone } from "react-icons/fi";
-import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
+import { handleDelete } from "@/utils/deleteContact";
+import { useRouter } from "next/router";
+
 type propsType = {
   contact: ContactType;
 };
-const handleDelete = async (id: number) => {
-  try {
-    await axios.delete(`api/contacts/${id}`);
-  } catch (err) {
-    console.log(err);
-  }
-};
+
 const ContactCard: FC<propsType> = ({ contact }) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (id: number) => handleDelete(id),
@@ -25,12 +22,12 @@ const ContactCard: FC<propsType> = ({ contact }) => {
     },
   });
   return (
-    <div className="bg-gray-700 p-4">
+    <div className="bg-gray-700 p-4 w-[100%]">
       <h3 className="mb-2 flex gap-3 items-center">
         <RxAvatar />
         {contact.name}
       </h3>
-      <h3 className="mb-2 flex gap-3 items-center">
+      <h3 className="mb-2 flex gap-3 items-center max-w-[90%]">
         <HiOutlineMail />
         {contact.email}
       </h3>
@@ -39,7 +36,10 @@ const ContactCard: FC<propsType> = ({ contact }) => {
         {contact.phone}
       </p>
       <div className="flex gap-4 mt-5 justify-center">
-        <AiOutlineEdit className="text-3xl text-purple-400" />
+        <AiOutlineEdit
+          className="text-3xl text-purple-400"
+          onClick={() => router.push(`/contact/edit/${contact.id}`)}
+        />
         <AiOutlineDelete
           className="text-3xl text-pink-400"
           onClick={() => mutation.mutate(contact.id)}

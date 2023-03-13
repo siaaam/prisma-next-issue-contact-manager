@@ -2,41 +2,15 @@ import { Formik, Form } from "formik";
 import React from "react";
 import FormControl from "./FormControl";
 import * as Yup from "yup";
-import axios from "axios";
 import { useRouter } from "next/router";
+import { addContact, MyFormValues } from "@/utils/addContact";
 
-type MyFormValues = {
-  name: string;
-  email: string;
-  phone: string;
-};
-
-const FormikContainer = () => {
+const FormikContainer = ({
+  initialValues,
+  validationSchema,
+  onSubmit,
+}: any) => {
   const router = useRouter();
-  const initialValues: MyFormValues = {
-    name: "",
-    email: "",
-    phone: "",
-  };
-  const validationSchema = Yup.object({
-    name: Yup.string().required("required"),
-    email: Yup.string().email().required("required"),
-    phone: Yup.string().required("required"),
-  });
-
-  const addContact = async (values: MyFormValues) => {
-    try {
-      await axios.post("api/create", values);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const onSubmit = async (values: MyFormValues) => {
-    addContact(values);
-    router.push("/contacts");
-  };
-
   return (
     <Formik
       initialValues={initialValues}

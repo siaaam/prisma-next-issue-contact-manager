@@ -1,16 +1,33 @@
-import FormikContainer from "@/components/formik/FormikContainer";
+import ContactForm from "@/components/ContactForm";
 import React from "react";
+import { useRouter } from "next/router";
+import { addContact, MyFormValues } from "@/utils/addContact";
+import * as Yup from "yup";
 
 const AddContact = () => {
+  const router = useRouter();
+  console.log(router);
+  const initialValues: any = {
+    name: "",
+    email: "",
+    phone: "",
+  };
+  const validationSchema = Yup.object({
+    name: Yup.string().required("required"),
+    email: Yup.string().email().required("required"),
+    phone: Yup.string().required("required"),
+  });
+  const onSubmit = async (values: MyFormValues) => {
+    addContact(values);
+    router.push("/contacts");
+  };
+
   return (
-    <section>
-      <div className="container">
-        <h2 className="mb-6 text-center">Add Contact</h2>
-        <div className="w-[450px] mx-auto">
-          <FormikContainer />
-        </div>
-      </div>
-    </section>
+    <ContactForm
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    />
   );
 };
 
