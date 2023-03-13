@@ -9,6 +9,9 @@ type propsType = {
   contact: ContactType;
 };
 const ContactCard: FC<propsType> = ({ contact }) => {
+  const handleDelete = (id: number) => {
+    console.log(id);
+  };
   return (
     <div className="bg-gray-700 p-4">
       <h3 className="mb-2 flex gap-3 items-center">
@@ -25,7 +28,10 @@ const ContactCard: FC<propsType> = ({ contact }) => {
       </p>
       <div className="flex gap-4 mt-5 justify-center">
         <AiOutlineEdit className="text-3xl text-purple-400" />
-        <AiOutlineDelete className="text-3xl text-pink-400" />
+        <AiOutlineDelete
+          className="text-3xl text-pink-400"
+          onClick={() => handleDelete(contact.id)}
+        />
       </div>
     </div>
   );

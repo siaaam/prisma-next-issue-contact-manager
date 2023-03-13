@@ -1,5 +1,6 @@
 import ContactCard from "@/components/ContactCard";
 import React from "react";
+import { prisma } from "@/lib/prisma";
 
 const contactsData: ContactType[] = [
   {
@@ -35,13 +36,13 @@ export type ContactType = {
   phone: string;
 };
 
-const contacts = () => {
+const contacts = ({ contacts }: any) => {
   return (
     <section>
       <div className="container">
         <h3 className="md:mb-6 mb-4">All Contacts </h3>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {contactsData.map((data) => (
+          {contacts.map((data: any) => (
             <ContactCard key={data.id} contact={data} />
           ))}
         </div>
@@ -49,5 +50,14 @@ const contacts = () => {
     </section>
   );
 };
+
+export async function getServerSideProps() {
+  const contacts = await prisma.contact.findMany();
+  return {
+    props: {
+      contacts,
+    },
+  };
+}
 
 export default contacts;
