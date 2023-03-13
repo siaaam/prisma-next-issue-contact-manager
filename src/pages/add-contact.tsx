@@ -6,7 +6,6 @@ import * as Yup from "yup";
 
 const AddContact = () => {
   const router = useRouter();
-  console.log(router);
   const initialValues: any = {
     name: "",
     email: "",
