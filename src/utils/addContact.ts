@@ -7,7 +7,7 @@ export type MyFormValues = {
 
 export const addContact = async (values: MyFormValues) => {
   try {
-    return await axios.post("api/create", values);
+    return await axios.post("http://localhost:3000/api/create", values);
   } catch (err) {
     console.log(err);
   }

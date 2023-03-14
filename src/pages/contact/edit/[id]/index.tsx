@@ -10,14 +10,14 @@ import { updateContact } from "@/utils/updateContact";
 const index = () => {
   const router = useRouter();
   const { id } = router.query;
+  console.log(id);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["contacts", id],
     queryFn: () => getSingleContact(id),
   });
-  const contact = data?.data.contact;
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error...</p>;
-
+  const contact = data?.contact;
   const initialValues: any = {
     name: contact?.name,
     email: contact?.email,
@@ -32,6 +32,7 @@ const index = () => {
     updateContact(id, values);
     router.push("/contacts");
   };
+
   return (
     <ContactForm
       initialValues={initialValues}

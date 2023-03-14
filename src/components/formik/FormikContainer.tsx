@@ -1,16 +1,12 @@
 import { Formik, Form } from "formik";
 import React from "react";
 import FormControl from "./FormControl";
-import * as Yup from "yup";
-import { useRouter } from "next/router";
-import { addContact, MyFormValues } from "@/utils/addContact";
 
 const FormikContainer = ({
   initialValues,
   validationSchema,
   onSubmit,
 }: any) => {
-  const router = useRouter();
   return (
     <Formik
       initialValues={initialValues}
