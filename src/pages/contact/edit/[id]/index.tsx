@@ -8,7 +8,6 @@ import { getSingleContact } from "@/utils/getSingleContact";
 import { updateContact } from "@/utils/updateContact";
 
 const index = () => {
-  // nothing
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
